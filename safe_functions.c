@@ -6,7 +6,7 @@
 /*   By: vascopinto <vascopinto@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/27 17:56:02 by vascopinto        #+#    #+#             */
-/*   Updated: 2026/06/29 22:30:33 by vascopinto       ###   ########.fr       */
+/*   Updated: 2026/06/30 11:56:37 by vascopinto       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ int	safe_mutex_handle(t_mtx *mutex, t_opcode opcode)
 	return (0);
 }
 
+//p -> POSIX
+//pthread_create: Creates a new thread and assigns it a function to execute
+//pthread_join: Makes the program wait for a thread to finish before continuing
+//pthread_detach: Safely terminates a thread, releasing associated resources
 int	safe_thread_handle(pthread_t *thread, void *(*wildcard)(void *),
 					void *arg, t_opcode opcode)
 {
