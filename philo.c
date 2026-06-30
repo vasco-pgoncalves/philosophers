@@ -6,7 +6,7 @@
 /*   By: vascopinto <vascopinto@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/26 16:15:10 by vascopinto        #+#    #+#             */
-/*   Updated: 2026/06/27 16:08:56 by vascopinto       ###   ########.fr       */
+/*   Updated: 2026/06/29 22:30:18 by vascopinto       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,9 @@ int	main(int argc, char *argv[])
 	t_table	table;
 
 	if (argc != 5 && argc != 6)
-	{
-		printf("incorect number of arguments\n");
-		return (0);
-	}
-	// error handling
+		return (printf("incorect number of arguments\n"), -1);
 	ph_parsing(&table, argv);
-	// creating and inicializing everything
 	data_init(&table);
-	// the actual simulation
 	diner_start(&table);
-	// free memory --> when all philos are full || when 1 philo dies
-	clean(&table);
+	cleanup_table(&table);
 }
