@@ -6,7 +6,7 @@
 /*   By: vascopinto <vascopinto@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/27 15:22:56 by vascopinto        #+#    #+#             */
-/*   Updated: 2026/06/29 23:17:24 by vascopinto       ###   ########.fr       */
+/*   Updated: 2026/06/30 01:17:52 by vascopinto       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	precise_usleep(long usec, t_table *table)
 		elapsed = get_time(MICROSECOND) - start;
 		rem = usec - elapsed;
 		if (rem > 1e3)
-			usleep (usec / 2);
+			usleep (rem / 2);
 		else
 			while (get_time(MICROSECOND) - start < usec)
 				;

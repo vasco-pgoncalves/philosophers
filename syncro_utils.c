@@ -6,7 +6,7 @@
 /*   By: vascopinto <vascopinto@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 19:49:26 by vascopinto        #+#    #+#             */
-/*   Updated: 2026/06/29 23:58:59 by vascopinto       ###   ########.fr       */
+/*   Updated: 2026/06/30 02:10:08 by vascopinto       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,20 @@ void	add_to_long(t_mtx	*mutex, long	*value)
 	safe_mutex_handle(mutex, LOCK);
 	(*value)++;
 	safe_mutex_handle(mutex, UNLOCK);
+}
+
+// Make the system fair when running odd philo_nb
+
+void	de_sync_philos(t_philo	*philo)
+{
+	if (philo->table->philo_nb % 2 == 0)
+	{
+		if (philo->id % 2 == 0)
+			precise_usleep(3e4, philo->table);
+	}
+	else
+	{
+		if (philo->table->philo_nb % 2)
+			thinking(philo, true);
+	}
 }

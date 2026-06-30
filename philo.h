@@ -6,7 +6,7 @@
 /*   By: vascopinto <vascopinto@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/26 12:42:22 by vascopinto        #+#    #+#             */
-/*   Updated: 2026/06/30 00:29:09 by vascopinto       ###   ########.fr       */
+/*   Updated: 2026/06/30 02:09:32 by vascopinto       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ void	diner_start(t_table	*table);
 bool	all_threads_running(t_mtx	*mutex, long *threads, long philo_nbr);
 void	add_to_long(t_mtx	*mutex, long	*value);
 void	*monitor_dinner(void	*data);
+void	thinking(t_philo	*philo, bool pre_simulation);
+void	de_sync_philos(t_philo	*philo);
 
 // Set_Get
 void	set_bool(t_mtx *mutex, bool *dest, bool value);

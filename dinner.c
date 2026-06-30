@@ -6,7 +6,7 @@
 /*   By: vascopinto <vascopinto@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/29 15:41:41 by vascopinto        #+#    #+#             */
-/*   Updated: 2026/06/30 00:53:19 by vascopinto       ###   ########.fr       */
+/*   Updated: 2026/06/30 02:10:45 by vascopinto       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	*alone(void	*arg)
 	print_status(TAKE_FIRST_FORK, philo);
 	while (!simulation_finished(philo->table))
 		usleep(300);
-	return (NULL); 
+	return (NULL);
 }
 
 static void	philo_eat(t_philo	*philo)
@@ -48,10 +48,23 @@ static void	philo_eat(t_philo	*philo)
 	safe_mutex_handle(&philo->second_fork->fork, UNLOCK);
 	safe_mutex_handle(&philo->first_fork->fork, UNLOCK);
 }
-//TODO
-static void	thinking(t_philo	*philo)
+
+void	thinking(t_philo	*philo, bool pre_simulation)
 {
-	print_status(THINKING, philo);
+	long	t_eat;
+	long	t_sleep;
+	long	t_think;
+
+	if (!pre_simulation)
+		print_status(THINKING, philo);
+	if (philo->table->philo_nb % 2 == 0)
+		return ;
+	t_eat = philo->table->time_to_eat;
+	t_sleep = philo->table->time_to_sleep;
+	t_think = t_eat * 2 - t_sleep;
+	if (t_think < 0)
+		t_think = 0;
+	precise_usleep (t_think * 0.42, philo->table);
 }
 
 void	*dinner_simulation(void	*data)
@@ -63,9 +76,7 @@ void	*dinner_simulation(void	*data)
 	set_long(&philo->philo_mutex, &philo->last_meal_time,
 		get_time(MILLISECOND));
 	add_to_long(&philo->table->table_mutex, &philo->table->threads_nb);
-
-	// set to the last meal time
-
+	de_sync_philos(philo);
 	while (!simulation_finished(philo->table))
 	{
 		if (philo->full)
@@ -73,7 +84,7 @@ void	*dinner_simulation(void	*data)
 		philo_eat(philo);
 		print_status(SLEEPING, philo);
 		precise_usleep(philo->table->time_to_sleep, philo->table);
-		thinking(philo);
+		thinking(philo, false);
 	}
 	return (NULL);
 }
